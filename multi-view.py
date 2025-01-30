@@ -346,46 +346,23 @@ class Experiment:
                             else:
                                 learned_specific_adj = learned_specific_adj.detach()
                             learned_specific_adjs.append(learned_specific_adj)  
-                        # 
-                        for i in range(len(adjs)+1):
-                            if args.sparse == False:
-                                if i !=len(adjs):
-                                    adj = learned_specific_adjs[i]+learned_fused_adj
-                                else:
-                                    adj = learned_fused_adj
+
+                        for i in range(len(learned_specific_adjs)+1):
+                            if i!=len(learned_specific_adjs):
+                                test_predict,train_predict = self.train_one_classfier(learned_specific_adjs[i],concat_feature,concat_feature.shape[1],labels,nclasses, train_mask,test_mask, args)
                             else:
-                                if i !=len(adjs):
-                                    adj = add_graphs(learned_specific_adjs[i], learned_fused_adj)
-                                else :
-                                    adj = learned_fused_adj
-                            adj = adj
-                            predict,train_predict = self.train_one_classfier(adj,concat_feature,concat_feature.shape[1],labels,nclasses, train_mask,test_mask, args)
-                            predict_transposed = predict.transpose(0, 1)
-                            matrix.append(predict_transposed)
+                                test_predict,train_predict = self.train_one_classfier(learned_fused_adj,concat_feature,concat_feature.shape[1],labels,nclasses, train_mask,test_mask, args)
+                            # 
+                            test_predict_transposed = test_predict.transpose(0, 1)
+                            matrix.append(test_predict_transposed)
                             train_predict_transposed=train_predict.transpose(0, 1)
                             train_matrix.append(train_predict_transposed)
-                            # 
-                            test_accur,test_f1_ma,test_f1_mi = self.acc(predict,labels,test_mask)
-                            test_accurs.append(test_accur)
-                            test_f1_mas.append(test_f1_ma)
-                            test_f1_mis.append(test_f1_mi)
-                            # 
-                            train_acc,train_f1_ma,train_f1_mi = self.acc(train_predict,labels,train_mask)
-                            train_accurs.append(train_acc)
-                            train_f1_mas.append(train_f1_ma)
-                            train_f1_mis.append(train_f1_mi)
-                          
-                        # ...
-                        predictions = model(view_features,learned_fused_adj,learned_specific_adjs,concat_feature)
-                        predictions = [F.softmax(prediction,1) for prediction in predictions]
-                        for i in range(len(predictions)):
-                            # 
-                            train_predict =predictions[i][train_mask]
-                            test_predict = predictions[i][test_mask]
-                            predict_transposed=test_predict.transpose(0, 1)
-                            matrix.append(predict_transposed)
-                            train_predict_transposed=train_predict.transpose(0, 1)
-                            train_matrix.append(train_predict_transposed)
+                            # train_predict =predictions[i][train_mask]
+                            # test_predict = predictions[i][test_mask]
+                            # predict_transposed=test_predict.transpose(0, 1)
+                            # matrix.append(predict_transposed)
+                            # train_predict_transposed=train_predict.transpose(0, 1)
+                            # train_matrix.append(train_predict_transposed)
                             # 
                             test_accur,test_f1_ma,test_f1_mi = self.acc(test_predict,labels,test_mask)
                             test_accurs.append(test_accur)
