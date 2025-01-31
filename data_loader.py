@@ -1,4 +1,3 @@
-"""加载数据"""
 import warnings
 import pickle as pkl
 import sys, os
@@ -211,7 +210,7 @@ def load_esp():
     # print("adjs:",adjs)
     # to tensor
     label = torch.tensor(L_data.ravel(), dtype=torch.int64)  
-    # print("Label shape:", label.shape)  # 应该是 (N,)
+    # print("Label shape:", label.shape)  # 
     # print("Label:", label)
 
     train_mask = torch.tensor(train_mask, dtype=torch.bool)  
@@ -294,8 +293,8 @@ def load_iap():
     # print("Validation mask count:", np.sum(val_mask))
     # print("Test mask count:", np.sum(test_mask))
     # feature
-    txt_data= torch.tensor(txt_data, dtype=torch.float32)  # 根据需要选择数据类型
-    img_data = torch.tensor(img_data, dtype=torch.float32)  # 根据需要选择数据类型
+    txt_data= torch.tensor(txt_data, dtype=torch.float32)  
+    img_data = torch.tensor(img_data, dtype=torch.float32)  
     txt_data = F.normalize(txt_data, p=2, dim=1)
     img_data = F.normalize(img_data, p=2, dim=1)
     view_feature = [txt_data,img_data]
@@ -303,12 +302,12 @@ def load_iap():
     adjs = [create_zero_adjacency_matrix(txt_data.shape) for _ in range(2)]
     # print("adjs:",adjs)
     # to tensor
-    # label = torch.tensor(L_data, dtype=torch.int64)  # 标签转换为 long Tensor
-    label = torch.tensor(L_data.ravel(), dtype=torch.int64)  # 或者使用 .flatten()
-    # print("Label shape:", label.shape)  # 应该是 (N,)
+    # label = torch.tensor(L_data, dtype=torch.int64)  
+    label = torch.tensor(L_data.ravel(), dtype=torch.int64)  
+    # print("Label shape:", label.shape)
     # print("Label:", label)
 
-    train_mask = torch.tensor(train_mask, dtype=torch.bool)  # 掩码转换为 Tensor
+    train_mask = torch.tensor(train_mask, dtype=torch.bool)  
     val_mask = torch.tensor(val_mask, dtype=torch.bool)
     test_mask = torch.tensor(test_mask, dtype=torch.bool)
     concat_feature = torch.cat(view_feature, dim=1)
@@ -340,8 +339,8 @@ def load_nus():
     # print("Validation mask count:", np.sum(val_mask))
     # print("Test mask count:", np.sum(test_mask))
     # feature
-    txt_data= torch.tensor(txt_data, dtype=torch.float32)  # 根据需要选择数据类型
-    img_data = torch.tensor(img_data, dtype=torch.float32)  # 根据需要选择数据类型
+    txt_data= torch.tensor(txt_data, dtype=torch.float32)  
+    img_data = torch.tensor(img_data, dtype=torch.float32)  
     txt_data = F.normalize(txt_data, p=2, dim=1)
     img_data = F.normalize(img_data, p=2, dim=1)
     view_feature = [txt_data,img_data]
@@ -349,12 +348,12 @@ def load_nus():
     adjs = [create_zero_adjacency_matrix(txt_data.shape) for _ in range(2)]
     # print("adjs:",adjs)
     # to tensor
-    # label = torch.tensor(L_data, dtype=torch.int64)  # 标签转换为 long Tensor
-    label = torch.tensor(L_data.ravel(), dtype=torch.int64)  # 或者使用 .flatten()
-    # print("Label shape:", label.shape)  # 应该是 (N,)
+    # label = torch.tensor(L_data, dtype=torch.int64)  
+    label = torch.tensor(L_data.ravel(), dtype=torch.int64)  
+    # print("Label shape:", label.shape)  
     # print("Label:", label)
 
-    train_mask = torch.tensor(train_mask, dtype=torch.bool)  # 掩码转换为 Tensor
+    train_mask = torch.tensor(train_mask, dtype=torch.bool)  
     val_mask = torch.tensor(val_mask, dtype=torch.bool)
     test_mask = torch.tensor(test_mask, dtype=torch.bool)
     concat_feature = torch.cat(view_feature, dim=1)
