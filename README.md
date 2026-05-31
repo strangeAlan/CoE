@@ -37,17 +37,13 @@ All datasets used in this project can be downloaded from the following link:
 If you wish to obtain the results for these datasets, please run the following command:
 
 ```
-
 python main.py -dataset [dataset_name]
-
 ```
 
 For example, if you want to run the `acm` dataset, the command to use is:
 
 ```
-
 python main.py -dataset acm
-
 ```
 
 2. **Datasets `esp/flickr/iapr/nus`**:
@@ -70,7 +66,6 @@ python multi-view.py -dataset esp
 If you find this repository useful, please cite our paper:
 
 ```
-
 @inproceedings{Cooperation2025Wang,
 author = {Wang, Shuo and Huang, Shunyang and Yuan, Jinghui and Shen, Zhixiang and Kang, Zhao},
 title = {Cooperation of experts: fusing heterogeneous information with large margin},
